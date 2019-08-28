@@ -15,6 +15,10 @@
   color:#000000;
   text-align:left;
 }
+.text_area {
+  color:#000000;
+  text-align:left;
+}
 .placeholder {
 }
 .box_2 {
@@ -26,7 +30,7 @@
 .horizontal_line {
 }
 .refs-webm-wechat {
-  font-family:'PingFang SC Regular', 'PingFang SC';
+  font-family:'PingFangSC-Regular', 'PingFang SC';
 }
 ._图片 {
 }
@@ -90,7 +94,7 @@
 .text_link_mouse_down {
 }
 .refs-design-apple {
-  font-family:'PingFang SC Regular', 'PingFang SC';
+  font-family:'PingFangSC-Regular', 'PingFang SC';
 }
 ._图片1 {
   color:#000000;
