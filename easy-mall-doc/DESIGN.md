@@ -6,9 +6,9 @@
 
 - easy-mall-axure 项目原型，使用 Axure 开发实现
 - easy-mall-app 微信小程序，使用小程序源码开发
-- easy-mall-api 小程序后端API项目，golang 框架 [gin](https://github.com/gin-gonic/gin) 实现
+- easy-mall-app-api 小程序后端API项目，golang 框架 [gin](https://github.com/gin-gonic/gin) 实现
 - easy-mall-admin 管理后台前端，基于 [vue-element-admin](https://github.com/PanJiaChen/vue-element-admin) 二次开发
-- easy-mall-admin 管理后台API后端，golang 框架 [gin](https://github.com/gin-gonic/gin) 实现
+- easy-mall-admin-api 管理后台API后端，golang 框架 [gin](https://github.com/gin-gonic/gin) 实现
 - easy-mall-doc 项目文档文稿目录
 - easy-mall-docker 项目 Docker 环境
 
