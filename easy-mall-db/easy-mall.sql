@@ -17,18 +17,15 @@ CREATE TABLE `admin` (
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(63) NOT NULL COMMENT '用户名称',
-  `password` varchar(63) NOT NULL DEFAULT '' COMMENT '用户密码',
+  `openid` varchar(63) NOT NULL DEFAULT '' COMMENT '微信登录openid',
+  `session_key` varchar(100) NOT NULL DEFAULT '' COMMENT '微信登录会话KEY',
   `gender` tinyint(3) NOT NULL DEFAULT '0' COMMENT '性别：0 未知， 1男， 1 女',
   `birthday` date DEFAULT NULL COMMENT '生日',
-  `login_at` datetime DEFAULT NULL COMMENT '最近登录时间',
   `nickname` varchar(63) NOT NULL DEFAULT '' COMMENT '用户昵称或网络名称',
   `phone` varchar(20) NOT NULL DEFAULT '' COMMENT '用户手机号码',
   `avatar` varchar(255) NOT NULL DEFAULT '' COMMENT '用户头像图片',
-  `weixin_openid` varchar(63) NOT NULL DEFAULT '' COMMENT '微信登录openid',
-  `session_key` varchar(100) NOT NULL DEFAULT '' COMMENT '微信登录会话KEY',
   `status` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '状态：1-正常， 2-停用，3-软删',
-  `add_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `login_at` datetime DEFAULT NULL COMMENT '最近登录时间',
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`),
@@ -60,3 +57,22 @@ CREATE TABLE `log_admin` (
   PRIMARY KEY (`id`) USING BTREE,
   KEY `idx_admin_id` (`admin_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=112 DEFAULT CHARSET=utf8mb4 COMMENT='管理员日志表';
+
+DROP TABLE IF EXISTS `advertisement`;
+DROP TABLE IF EXISTS `address`;
+DROP TABLE IF EXISTS `cart`;
+DROP TABLE IF EXISTS `category`;
+DROP TABLE IF EXISTS `coupon`;
+DROP TABLE IF EXISTS `goods`;
+DROP TABLE IF EXISTS `goods_attr`;
+DROP TABLE IF EXISTS `goods_collect`;
+DROP TABLE IF EXISTS `goods_comment`;
+DROP TABLE IF EXISTS `goods_specification`;
+DROP TABLE IF EXISTS `goods_stock`;
+DROP TABLE IF EXISTS `issue`;
+DROP TABLE IF EXISTS `order`;
+DROP TABLE IF EXISTS `order_goods`;
+DROP TABLE IF EXISTS `province_city`;
+DROP TABLE IF EXISTS `user_coupon`;
+DROP TABLE IF EXISTS `user_feedback`;
+DROP TABLE IF EXISTS `user_footprint`;
