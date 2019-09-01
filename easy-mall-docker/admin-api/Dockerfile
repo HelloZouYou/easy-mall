@@ -1,4 +1,4 @@
-FROM centos:7
+FROM alpine:latest
 
 LABEL maintainer="Zou You <hellozouyou@gmail.com>"
 
