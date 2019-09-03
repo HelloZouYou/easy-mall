@@ -47,43 +47,34 @@ DOCKER_HOST_IP=10.0.75.1
 ### WORKSPACE #############################################
 WORKSPACE_TIMEZONE=PRC
 
-### NGINX #################################################
+### EASY_MALL_ADMIN #################################################
 
-NGINX_HOST_HTTP_PORT=80
-NGINX_HOST_HTTPS_PORT=443
-NGINX_HOST_LOG_PATH=./logs/nginx/
-NGINX_SITES_PATH=./nginx/sites/
-NGINX_PHP_UPSTREAM_CONTAINER=php-fpm
-NGINX_PHP_UPSTREAM_PORT=1215
-NGINX_SSL_PATH=./nginx/ssl/
+ADMIN_HOST_HTTP_PORT=80
+ADMIN_HOST_HTTPS_PORT=443
+ADMIN_HOST_LOG_PATH=./.easy-mall-dock/logs/admin/
+ADMIN_SITES_PATH=./admin/sites/
+ADMIN_SSL_PATH=./admin/ssl/
+
+### EASY_MALL_ADMIN_API #################################################
+
+ADMIN_API_HOST_HTTP_PORT=8080
+ADMIN_API_HOST_HTTPS_PORT=8443
+
+### EASY_MALL_APP_API #################################################
+
+APP_API_HOST_HTTP_PORT=8081
+APP_API_HOST_HTTPS_PORT=9443
 
 ### MYSQL #################################################
 
 MYSQL_VERSION=5.7
-MYSQL_DATABASE=tianyan
+MYSQL_DATABASE=easy-mall
 MYSQL_USER=default
 MYSQL_PASSWORD=secret
-MYSQL_PORT=3306
+MYSQL_PORT=33060
 MYSQL_ROOT_PASSWORD=root
 MYSQL_ENTRYPOINT_INITDB=./mysql/docker-entrypoint-initdb.d
 
 ### REDIS #################################################
 
-REDIS_PORT=6379
-
-### MONGODB ###############################################
-
-MONGODB_PORT=27017
-
-### REDISWEBUI #########################################
-REDIS_WEBUI_USERNAME=laradock
-REDIS_WEBUI_PASSWORD=laradock
-REDIS_WEBUI_CONNECT_HOST=redis
-REDIS_WEBUI_CONNECT_PORT=6379
-REDIS_WEBUI_PORT=9987
-
-### MONGOWEBUI ###############################################
-MONGO_WEBUI_PORT=3000
-MONGO_WEBUI_ROOT_URL=http://localhost
-MONGO_WEBUI_MONGO_URL=mongodb://mongo:27017/
-MONGO_WEBUI_INSTALL_MONGO=false
+REDIS_PORT=63790

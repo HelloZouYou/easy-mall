@@ -1,17 +1,19 @@
 DROP TABLE IF EXISTS `admin`;
 CREATE TABLE `admin` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '帐号昵称',
+  `name` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '帐号名称',
   `email` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '邮箱名',
-  `phone` char(11) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '电话号码',
+  `mobile` char(11) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '手机号码',
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '密码',
-  `status` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '状态：1-正常， 2-停用，3-软删',
   `avatar` varchar(255) DEFAULT '' COMMENT '头像图片',
   `login_at` datetime DEFAULT NULL COMMENT '最近登录时间',
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '状态：1-正常， 2-停用，3-软删',
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE KEY `users_email_unique` (`email`) USING BTREE
+  UNIQUE KEY `admin_name_unique` (`name`) USING BTREE,
+  UNIQUE KEY `admin_email_unique` (`email`) USING BTREE,
+  UNIQUE KEY `admin_mobile_unique` (`mobile`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='管理员表';
 
 DROP TABLE IF EXISTS `user`;
@@ -28,8 +30,7 @@ CREATE TABLE `user` (
   `login_at` datetime DEFAULT NULL COMMENT '最近登录时间',
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `user_name` (`username`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COMMENT='用户表';
 
 DROP TABLE IF EXISTS `log_user`;
@@ -58,8 +59,19 @@ CREATE TABLE `log_admin` (
   KEY `idx_admin_id` (`admin_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=112 DEFAULT CHARSET=utf8mb4 COMMENT='管理员日志表';
 
-DROP TABLE IF EXISTS `advertisement`;
-DROP TABLE IF EXISTS `address`;
+DROP TABLE IF EXISTS `banner`;
+CREATE TABLE `litemall_ad` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(63) NOT NULL DEFAULT '' COMMENT '名称',
+  `link` varchar(255) NOT NULL DEFAULT '' COMMENT '链接地址',
+  `img_url` varchar(255) NOT NULL COMMENT '图片地址',
+  `content` varchar(255) DEFAULT '' COMMENT '活动内容',
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '状态：1-正常， 2-停用，3-软删',
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`),
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COMMENT='首页 banner';
+
 DROP TABLE IF EXISTS `cart`;
 DROP TABLE IF EXISTS `category`;
 DROP TABLE IF EXISTS `coupon`;
@@ -73,6 +85,26 @@ DROP TABLE IF EXISTS `issue`;
 DROP TABLE IF EXISTS `order`;
 DROP TABLE IF EXISTS `order_goods`;
 DROP TABLE IF EXISTS `province_city`;
+
+DROP TABLE IF EXISTS `user_address`;
+CREATE TABLE `user_address` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
+  `name` varchar(63) NOT NULL DEFAULT '' COMMENT '收货人',
+  `phone` varchar(20) NOT NULL DEFAULT '' COMMENT '电话号码，可以固话',
+  `province` varchar(63) NOT NULL COMMENT '行政区域表的省ID',
+  `city` varchar(63) NOT NULL COMMENT '行政区域表的市ID',
+  `county` varchar(63) NOT NULL COMMENT '行政区域表的区县ID',
+  `detail` varchar(127) NOT NULL DEFAULT '' COMMENT '详细收货地址',
+  `area_code` char(6) DEFAULT NULL COMMENT '地区编码，冗余县级',
+  `postal_code` char(6) DEFAULT NULL COMMENT '邮政编码，冗余县级',
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '状态：1-非默认， 2-默认，3-软删',
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户收货地址';
+
 DROP TABLE IF EXISTS `user_coupon`;
 DROP TABLE IF EXISTS `user_feedback`;
 DROP TABLE IF EXISTS `user_footprint`;
