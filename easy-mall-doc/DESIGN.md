@@ -15,6 +15,8 @@
 ## 技术栈
 
 - Golang
+- go-micro
+- grpc
 - Vue
 - element-ui
 - 微信小程序
@@ -51,3 +53,9 @@
 - 权限管理
 - 图表统计
 - 系统配置
+
+## 模块架构
+
+项目实现前后分离，后端采用 go-micro 实现微服务化
+
+![架构设计](./img/design.png)
