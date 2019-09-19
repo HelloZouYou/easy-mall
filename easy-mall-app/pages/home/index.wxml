@@ -1,2 +1,15 @@
-<!--pages/home/index.wxml-->
-<text>pages/home/index.wxml</text>
+<view class="banner">
+  <swiper class="banner" indicator-dots="true" autoplay="true" interval="3000" duration="500" circular="false">
+    <block wx:for="{{banner_arr}}" wx:key="{{ item }}" >
+      <swiper-item>
+        <image src="{{ item }}" class="slide-image" mode="scaleToFill"/>
+      </swiper-item>
+    </block>
+  </swiper>
+</view>
+<view class="category">
+  <view class="category-item" wx:for="{{ category_arr }}" wx:key="{{ item }}" >
+    <image src="{{ item.icon }}"></image>
+    <text>{{ item.name }}</text>
+  </view>
+</view>
