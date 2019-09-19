@@ -9,7 +9,7 @@
   </swiper>
 </view>
 <!-- 推荐类目，最好四个 -->
-<view class="category shadow-div">
+<view class="category shadow-div data-box">
   <view class="category-item" wx:for="{{ category_arr }}" wx:key="{{ item }}" >
     <image src="{{ item.icon }}" class="category-item-icon"></image>
     <text class="category-item-text">{{ item.name }}</text>
@@ -23,5 +23,14 @@
   </view>
   <view class="data-box-body">
   优惠券列表
+  </view>
+</view>
+<!-- 推荐商品 -->
+<view class="coupon shadow-div data-box">
+  <view class="data-box-header">
+    <text class="data-box-title">好货推荐</text>
+  </view>
+  <view class="data-box-body">
+  推荐商品列表
   </view>
 </view>
