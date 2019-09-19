@@ -8,9 +8,9 @@ let res_data = {
 // 获取 banner 数据
 exports.getBannerData = (req, res) => {
     res_data.data = Mock.mock([
-        'https://github.com/HelloZouYou/easy-mall/blob/master/easy-mall-app/mock/data/banner/1.png?w=450&h=300',
-        'https://github.com/HelloZouYou/easy-mall/blob/master/easy-mall-app/mock/data/banner/2.png?w=450&h=300',
-        'https://github.com/HelloZouYou/easy-mall/blob/master/easy-mall-app/mock/data/banner/3.png?w=450&h=300'
+        'http://localhost:8080/image/banner/1?w=450&h=300',
+        'http://localhost:8080/image/banner/2?w=450&h=300',
+        'http://localhost:8080/image/banner/3?w=450&h=300',
     ])
     res.status(200).json(res_data)
 };
@@ -19,19 +19,23 @@ exports.getBannerData = (req, res) => {
 exports.getCategoryData = (req, res) => {
     res_data.data = Mock.mock([
         {
-            icon: 'https://github.com/HelloZouYou/easy-mall/blob/master/easy-mall-app/mock/data/icon/category-1.png',
+            icon: 'http://localhost:8080/image/category/1',
             name: '分类一'
         },
         {
-            icon: 'https://github.com/HelloZouYou/easy-mall/blob/master/easy-mall-app/mock/data/icon/category-2.png',
+            icon: 'http://localhost:8080/image/category/2',
             name: '分类二'
         },
         {
-            icon: 'https://github.com/HelloZouYou/easy-mall/blob/master/easy-mall-app/mock/data/icon/category-3.png',
+            icon: 'http://localhost:8080/image/category/3',
             name: '分类三'
         },
         {
-            icon: 'https://github.com/HelloZouYou/easy-mall/blob/master/easy-mall-app/mock/data/icon/category-4.png',
+            icon: 'http://localhost:8080/image/category/4',
+            name: '分类四'
+        },
+        {
+            icon: 'http://localhost:8080/image/category/4',
             name: '分类四'
         },
     ])

@@ -1,3 +1,4 @@
+<!-- 推广 banner -->
 <view class="banner">
   <swiper class="banner" indicator-dots="true" autoplay="true" interval="3000" duration="500" circular="false">
     <block wx:for="{{banner_arr}}" wx:key="{{ item }}" >
@@ -7,9 +8,20 @@
     </block>
   </swiper>
 </view>
-<view class="category">
+<!-- 推荐类目，最好四个 -->
+<view class="category shadow-div">
   <view class="category-item" wx:for="{{ category_arr }}" wx:key="{{ item }}" >
-    <image src="{{ item.icon }}"></image>
-    <text>{{ item.name }}</text>
+    <image src="{{ item.icon }}" class="category-item-icon"></image>
+    <text class="category-item-text">{{ item.name }}</text>
+  </view>
+</view>
+<!-- 今日优惠券 -->
+<view class="coupon shadow-div data-box">
+  <view class="data-box-header">
+    <text class="data-box-title">今日优惠券</text>
+    <text class="data-box-action">查看更多>></text>
+  </view>
+  <view class="data-box-body">
+  优惠券列表
   </view>
 </view>

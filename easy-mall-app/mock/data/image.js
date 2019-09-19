@@ -1,3 +1,6 @@
 exports.banner = (req, res) => {
-    res.status(200).sendFile('https://github.com/HelloZouYou/easy-mall/blob/master/easy-mall-app/mock/data/banner/' + req.params.id + '.png')
+    res.status(200).sendFile(__dirname + '/banner/' + req.params.id + '.png')
+}
+exports.category = (req, res) => {
+    res.status(200).sendFile(__dirname + '/icon/category-' + req.params.id + '.png')
 }
