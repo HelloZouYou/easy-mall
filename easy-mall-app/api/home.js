@@ -9,11 +9,29 @@ module.exports = {
       data: params
     })
   },
+  // 请求推荐类目
   getCategoryData: (params) => {
     return request({
       url: '/home/category',
       method: 'GET',
       data: params
     })
-  }
+  },
+  // 请求推荐类目
+  getCouponData: (params) => {
+    return request({
+      url: '/home/coupon',
+      method: 'GET',
+      data: params
+    })
+  },
+  // 请求推荐类目
+  getGoodsData: (params) => {
+    return request({
+      url: '/home/goods',
+      method: 'GET',
+      data: params
+    })
+  },
+
 }

@@ -1,6 +1,6 @@
 /**app.wxss**/
 page {
-  background-color: #FAFAFA;
+  background-color: #F1F1F1;
 } 
 
 view, image, text, navigator {
@@ -35,7 +35,7 @@ view, text {
 }
 .data-box-action {
   position: absolute;
-  right: 10rpx;
+  right: 20rpx;
 }
 .data-box-body {
   padding: 20rpx 0;

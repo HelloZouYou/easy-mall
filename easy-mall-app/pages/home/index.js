@@ -1,6 +1,8 @@
 import { 
   getBannerData,
-  getCategoryData
+  getCategoryData,
+  getCouponData,
+  getGoodsData
 } from '../../api/home.js'
 
 Page({
@@ -9,9 +11,14 @@ Page({
    * 页面的初始数据
    */
   data: {
-    // 
+    // banner 广告
     banner_arr: [],
-    category_arr: []
+    // 推荐类目
+    category_arr: [],
+    // 今日优惠券
+    coupon_arr: [],
+    // 推荐商品
+    goods_arr: []
   },
   /**
    * 拉取数据
@@ -19,6 +26,8 @@ Page({
   fetchData: function() {
     this.fetchBannerData()
     this.fetchCategoryData()
+    this.fetchCouponData()
+    this.fetchGoodsData()
   },
   /**
    * 拉取 banner 数据
@@ -39,6 +48,30 @@ Page({
     getCategoryData({}).then(res => {
       this.setData({
         category_arr: res.data.data
+      })
+    }).catch(errors => {
+      console.log(errors)
+    })
+  },
+  /**
+   * 拉取优惠券
+   */
+  fetchCouponData() {
+    getCouponData({}).then(res => {
+      this.setData({
+        coupon_arr: res.data.data
+      })
+    }).catch(errors => {
+      console.log(errors)
+    })
+  },
+  /**
+   * 拉取推荐商品
+   */
+  fetchGoodsData() {
+    getGoodsData({}).then(res => {
+      this.setData({
+        goods_arr: res.data.data
       })
     }).catch(errors => {
       console.log(errors)
