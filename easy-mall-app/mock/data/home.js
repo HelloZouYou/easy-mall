@@ -7,7 +7,8 @@ let res_data = {
 }
 // 获取 banner 数据
 exports.getBannerData = (req, res) => {
-    res_data.data = Mock.mock([{
+    let tmp = Object.assign({}, res_data)
+    tmp.data = Mock.mock([{
             id: 1,
             img_url: 'http://localhost:8080/image/banner/1?w=450&h=300',
         },
@@ -20,12 +21,13 @@ exports.getBannerData = (req, res) => {
             img_url: 'http://localhost:8080/image/banner/3?w=450&h=300',
         },
     ])
-    res.status(200).json(res_data)
+    res.status(200).json(tmp)
 };
 
 // 获取 类目 数据
 exports.getCategoryData = (req, res) => {
-    res_data.data = Mock.mock([{
+    let tmp = Object.assign({}, res_data)
+    tmp.data = Mock.mock([{
             id: 1,
             icon_url: 'http://localhost:8080/image/category/1?w=30&h=30',
             name: '分类一'
@@ -46,11 +48,12 @@ exports.getCategoryData = (req, res) => {
             name: '分类四'
         },
     ])
-    res.status(200).json(res_data)
+    res.status(200).json(tmp)
 };
 
 exports.getCouponData = (req, res) => {
-    res_data.data = Mock.mock([{
+    let tmp = Object.assign({}, res_data)
+    tmp.data = Mock.mock([{
         id: 1,
         amount: 5.00,
         name: '限时满减券',
@@ -65,11 +68,12 @@ exports.getCouponData = (req, res) => {
         limit_msg: '全场通用',
         days: '10',
     }])
-    res.status(200).json(res_data)
+    res.status(200).json(tmp)
 }
 
 exports.getGoodsData = (req, res) => {
-    res_data.data = Mock.mock([{
+    let tmp = Object.assign({}, res_data)
+    tmp.data = Mock.mock([{
         id: 1,
         pic_url: 'http://localhost:8080/image/goods/1?w=80&h=80',
         price: 98.0,
@@ -88,6 +92,6 @@ exports.getGoodsData = (req, res) => {
         name: '湘西腊肠',
         desc: '风味鲜美，醇厚浓郁，回味绵长，越嚼越香'
     }])
-    res.status(200).json(res_data)
+    res.status(200).json(tmp)
 
 }
