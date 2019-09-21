@@ -1,7 +1,18 @@
 {
 	"description": "项目配置文件",
 	"packOptions": {
-		"ignore": []
+		"ignore": [{
+        "type": "file",
+        "value": "README.md"
+      },{
+        "type": "file",
+        "value": ".gitignore"
+      },
+      {
+        "type": "folder",
+        "value": "mock"
+      }
+    ]
 	},
 	"setting": {
 		"urlCheck": false,
