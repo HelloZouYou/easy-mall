@@ -1,18 +1,20 @@
 {
 	"description": "项目配置文件",
 	"packOptions": {
-		"ignore": [{
-        "type": "file",
-        "value": "README.md"
-      },{
-        "type": "file",
-        "value": ".gitignore"
-      },
-      {
-        "type": "folder",
-        "value": "mock"
-      }
-    ]
+		"ignore": [
+			{
+				"type": "file",
+				"value": "README.md"
+			},
+			{
+				"type": "file",
+				"value": ".gitignore"
+			},
+			{
+				"type": "folder",
+				"value": "mock"
+			}
+		]
 	},
 	"setting": {
 		"urlCheck": false,
@@ -52,13 +54,32 @@
 			"current": -1,
 			"list": []
 		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
 		"game": {
 			"currentL": -1,
 			"list": []
 		},
 		"miniprogram": {
-			"current": -1,
-			"list": []
+			"current": 1,
+			"list": [
+				{
+					"id": -1,
+					"name": "首页",
+					"pathName": "pages/home/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "分类列表",
+					"pathName": "pages/category/index",
+					"query": "id=1",
+					"scene": null
+				}
+			]
 		}
 	}
 }

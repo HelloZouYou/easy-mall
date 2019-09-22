@@ -17,7 +17,7 @@ module.exports = {
       data: params
     })
   },
-  // 请求推荐类目
+  // 请求优惠券
   getCouponData: (params) => {
     return request({
       url: '/home/coupon',
@@ -25,7 +25,7 @@ module.exports = {
       data: params
     })
   },
-  // 请求推荐类目
+  // 请求推荐商品
   getGoodsData: (params) => {
     return request({
       url: '/home/goods',
