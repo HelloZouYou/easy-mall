@@ -63,7 +63,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 1,
+			"current": 2,
 			"list": [
 				{
 					"id": -1,
@@ -77,6 +77,12 @@
 					"name": "分类列表",
 					"pathName": "pages/category/index",
 					"query": "id=1",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "购物车",
+					"pathName": "pages/cart/index",
 					"scene": null
 				}
 			]

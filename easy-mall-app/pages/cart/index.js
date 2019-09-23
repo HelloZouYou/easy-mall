@@ -5,7 +5,29 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    cart_goods_arr: [
+      {
+        id: 1,
+        is_checked: true,
+        pic_url: 'http://localhost:8080/image/goods/1?w=80&h=80',
+        goods_name: '123123123123123123',
+        goods_stock: '已选择的规格描述',
+        number: 2,
+        price: 99
+      },
+      {
+        id: 2,
+        is_checked: false,
+        pic_url: 'http://localhost:8080/image/goods/1?w=80&h=80',
+        goods_name: '456',
+        goods_stock: '已选择的规格描述',
+        number: 1,
+        price: 99
+      }
+    ]
+  },
+  goodsNumChange: function (e) {
+    console.log(e.detail)
   },
 
   /**

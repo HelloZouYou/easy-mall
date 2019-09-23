@@ -1,2 +1,25 @@
-<!--pages/cart/index.wxml-->
-<text>pages/cart/index.wxml</text>
+<view calss="cart-goods">
+  <checkbox-group>
+    <view class="cart-goods-item" wx:for="{{ cart_goods_arr }}" wx:key="{{ item.goods_id }}">
+      <view class="cart-goods-item-checkbox">
+        <checkbox value="{{item.goods_id}}" checked="{{item.is_checked}}"></checkbox>
+      </view>
+      <view class="cart-goods-item-img">
+        <image src="{{ item.pic_url }}" mode="widthFix"></image>
+      </view>
+      <view class="cart-goods-item-info">
+        <text class="cart-goods-item-info-name">{{ item.goods_name }}</text>
+        <text class="cart-goods-item-info-stock">{{ item.goods_stock }}</text>
+        <view>
+          <text class="cart-goods-item-info-price">￥{{ item.price }}</text>
+          <step-num-add-sub
+            number="{{ item.number }}"
+            data="{{ { id: item.id } }}"
+            bind:numberChange="goodsNumChange"
+            class="cart-goods-item-info-num">            
+          </step-num-add-sub>
+        </view>
+      </view>
+    </view>
+  </checkbox-group>
+</view>
