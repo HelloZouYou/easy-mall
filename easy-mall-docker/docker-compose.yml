@@ -43,7 +43,7 @@ services:
             - MYSQL_USER=${MYSQL_USER}
             - MYSQL_PASSWORD=${MYSQL_PASSWORD}
             - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
-            - TZ=${WORKSPACE_TIMEZONE}
+            - TZ=${TIMEZONE}
         volumes:
             - ${DATA_PATH_HOST}/mysql:/var/lib/mysql
             - ${MYSQL_ENTRYPOINT_INITDB}:/docker-entrypoint-initdb.d
@@ -94,6 +94,8 @@ services:
     ### ADMIN #############################################
     admin:
         build: ./admin
+        volumes:
+            - ../easy-mall-admin/dist:/html
         environment:
             - TZ=${TIMEZONE}
         ports:

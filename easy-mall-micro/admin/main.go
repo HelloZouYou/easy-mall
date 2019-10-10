@@ -13,6 +13,7 @@ func main() {
 	service := web.NewService(
 		web.Name("easymall.web.admin"),
 		web.Version("latest"),
+		web.Address(":80"),
 	)
 
 	// initialise service
@@ -21,7 +22,7 @@ func main() {
 	}
 
 	// register html handler
-	service.Handle("/", http.FileServer(http.Dir("../../easy-mall-admin/dist")))
+	service.Handle("/", http.FileServer(http.Dir("/html")))
 
 	// run service
 	if err := service.Run(); err != nil {
