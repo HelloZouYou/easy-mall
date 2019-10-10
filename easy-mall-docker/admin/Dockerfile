@@ -1,23 +1,14 @@
-FROM nginx:alpine
+FROM alpine:latest
 
-LABEL maintainer="Mahmoud Zalt <mahmoud@zalt.me>"
+LABEL maintainer="Zou You <hellozouyou@gmail.com>"
 
-COPY nginx.conf /etc/nginx/
+# 设置时区
+ARG TZ=PRC
+ENV TZ ${TZ}
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/' /etc/apk/repositories
+COPY main /main
 
-RUN apk update \
-    && apk upgrade \
-    && apk --update add logrotate \
-    && apk add --no-cache openssl \
-    && apk add --no-cache bash
-
-RUN set -x ; \
-    addgroup -g 82 -S www-data ; \
-    adduser -u 82 -D -S -G www-data www-data && exit 0 ; exit 1
-
-ADD ./startup.sh /opt/startup.sh
-RUN sed -i 's/\r//g' /opt/startup.sh
-CMD ["/bin/bash", "/opt/startup.sh"]
+ENTRYPOINT [ "/main" ]
 
 EXPOSE 80 443

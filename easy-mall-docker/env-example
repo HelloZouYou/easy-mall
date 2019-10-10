@@ -4,77 +4,44 @@
 
 ### Paths #################################################
 
-# Point to the path of your applications code on your host
-APP_CODE_PATH_HOST=../
+# 代码主机地址
+APP_CODE_PATH_HOST=./
 
-# Point to where the `APP_CODE_PATH_HOST` should be in the container
+# 代码容器地址
 APP_CODE_PATH_CONTAINER=/var/www
 
-# You may add flags to the path `:cached`, `:delegated`. When using Docker Sync add `:nocopy`
-APP_CODE_CONTAINER_FLAG=:cached
+# 容器数据主机存储地址
+DATA_PATH_HOST=./data
 
-# Choose storage path on your machine. For all storage systems
-DATA_PATH_HOST=./.easy-mall-dock/data
+# Windows下; Linux下:
+COMPOSE_PATH_SEPARATOR=;
 
-### Drivers ################################################
+# COMPOSE 项目名称
+# COMPOSE_PROJECT_NAME=easy-mall-dock
 
-# All volumes driver
-VOLUMES_DRIVER=local
+# Docker 在主机的IP
+DOCKER_HOST_IP=10.0.80.1
 
-# All Networks driver
-NETWORKS_DRIVER=bridge
+# Windows 路径转换
+COMPOSE_CONVERT_WINDOWS_PATHS=1
 
-### Docker compose files ##################################
+# 时区
+TIMEZONE=PRC
 
-# Select which docker-compose files to include. If using docker-sync append `:docker-compose.sync.yml` at the end
-COMPOSE_FILE=docker-compose.yml
-
-# Change the separator from : to ; on Windows
-COMPOSE_PATH_SEPARATOR=:
-
-# Define the prefix of container names. This is useful if you have multiple projects that use laradock to have seperate containers per project.
-COMPOSE_PROJECT_NAME=easy-mall-dock
-
-### Docker Host IP ########################################
-
-# Enter your Docker Host IP (will be appended to /etc/hosts). Default is `10.0.75.1`
-DOCKER_HOST_IP=10.0.75.1
-
-###########################################################
-################ Containers Customization #################
-###########################################################
-
-### WORKSPACE #############################################
-WORKSPACE_TIMEZONE=PRC
-
-### EASY_MALL_ADMIN #################################################
-
-ADMIN_HOST_HTTP_PORT=80
-ADMIN_HOST_HTTPS_PORT=443
-ADMIN_HOST_LOG_PATH=./.easy-mall-dock/logs/admin/
-ADMIN_SITES_PATH=./admin/sites/
-ADMIN_SSL_PATH=./admin/ssl/
-
-### EASY_MALL_ADMIN_API #################################################
-
-ADMIN_API_HOST_HTTP_PORT=8080
-ADMIN_API_HOST_HTTPS_PORT=8443
-
-### EASY_MALL_APP_API #################################################
-
-APP_API_HOST_HTTP_PORT=8081
-APP_API_HOST_HTTPS_PORT=9443
+# GOPROXY
+GOPROXY=https://goproxy.cn
 
 ### MYSQL #################################################
-
 MYSQL_VERSION=5.7
 MYSQL_DATABASE=easy-mall
 MYSQL_USER=default
 MYSQL_PASSWORD=secret
-MYSQL_PORT=33060
+MYSQL_PORT=33063
 MYSQL_ROOT_PASSWORD=root
 MYSQL_ENTRYPOINT_INITDB=./mysql/docker-entrypoint-initdb.d
 
-### REDIS #################################################
+### ETCD ##################################################
+ETCD_VERSION=v3.4.0
 
-REDIS_PORT=63790
+### REDIS #################################################
+REDIS_PORT=63793

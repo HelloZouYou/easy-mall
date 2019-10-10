@@ -2,12 +2,13 @@ FROM alpine:latest
 
 LABEL maintainer="Zou You <hellozouyou@gmail.com>"
 
-# Change application source from dl-cdn.alpinelinux.org to aliyun source
-RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/' /etc/apk/repositories
+# 设置时区
+ARG TZ=PRC
+ENV TZ ${TZ}
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-RUN apk update \
-    && apk upgrade \
-    && apk add --no-cache openssl \
-    && apk add --no-cache bash
+COPY main /main
+
+ENTRYPOINT [ "/main" ]
 
 EXPOSE 80 443

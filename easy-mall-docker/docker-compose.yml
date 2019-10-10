@@ -2,71 +2,37 @@ version: "3"
 
 networks:
     frontend:
-        driver: ${NETWORKS_DRIVER}
+        driver: bridge
     backend:
-        driver: ${NETWORKS_DRIVER}
+        driver: bridge
 
 volumes:
     mysql:
-        driver: ${VOLUMES_DRIVER}
+        driver: local
     redis:
-        driver: ${VOLUMES_DRIVER}
-    mongo:
-        driver: ${VOLUMES_DRIVER}
+        driver: local
 
 services:
-    ### Workspace Utilities ##################################
-    # workspace:
-    #     build:
-    #         context: ./workspace
-
-    ### easy-mall-admin ######################################
-    admin:
-        build:
-            context: ./admin
-            args:
-                - http_proxy
-                - https_proxy
-                - no_proxy
+    ### WORKSPACE #########################################
+    workspace:
+        build: ./workspace
+        environment:
+            - TZ=${TIMEZONE}
+            - GOPROXY=${GOPROXY}
         volumes:
-            - ${APP_CODE_PATH_HOST}/easy-mall-admin:${APP_CODE_PATH_CONTAINER}${APP_CODE_CONTAINER_FLAG}
-            - ${ADMIN_HOST_LOG_PATH}:/var/log/nginx
-            - ${ADMIN_SITES_PATH}:/etc/nginx/sites-available
-            - ${ADMIN_SSL_PATH}:/etc/nginx/ssl
+            - ${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}:cached
+        tty: true
         ports:
-            - "${ADMIN_HOST_HTTP_PORT}:80"
-            - "${ADMIN_HOST_HTTPS_PORT}:443"
+            - "8082:8082"
         networks:
             - frontend
             - backend
+        depends_on:
+            - mysql
+            - etcd
+            - redis
 
-    ### easy-mall-admin-api ##################################
-    admin-api:
-        build:
-            context: ./admin-api
-        volumes:
-            - ${APP_CODE_PATH_HOST}/easy-mall-admin:${APP_CODE_PATH_CONTAINER}${APP_CODE_CONTAINER_FLAG}
-        ports:
-            - "${ADMIN_API_HOST_HTTP_PORT}:80"
-            - "${ADMIN_API_HOST_HTTPS_PORT}:443"
-        networks:
-            - frontend
-            - backend
-
-    ### easy-mall-app-api ####################################
-    app-api:
-        build:
-            context: ./app-api
-        volumes:
-            - ${APP_CODE_PATH_HOST}/easy-mall-api:${APP_CODE_PATH_CONTAINER}${APP_CODE_CONTAINER_FLAG}
-        ports:
-            - "${APP_API_HOST_HTTP_PORT}:80"
-            - "${APP_API_HOST_HTTPS_PORT}:443"
-        networks:
-            - frontend
-            - backend
-
-    ### MySQL ################################################
+    ### MySQL #############################################
     mysql:
         build:
             context: ./mysql
@@ -86,7 +52,7 @@ services:
         networks:
             - backend
 
-    ### Redis ################################################
+    ### Redis #############################################
     redis:
         build: ./redis
         volumes:
@@ -95,3 +61,78 @@ services:
             - "${REDIS_PORT}:6379"
         networks:
             - backend
+
+    ### ETCD ##############################################
+    etcd:
+        image: quay.io/coreos/etcd:${ETCD_VERSION}
+        expose:
+            - 2379
+            - 2380
+        networks:
+            - backend
+        environment:
+            - ETCDCTL_API=3
+        command:
+            - /usr/local/bin/etcd
+            - --initial-advertise-peer-urls
+            - http://0.0.0.0:2380
+            - --listen-peer-urls
+            - http://0.0.0.0:2380
+            - --advertise-client-urls
+            - http://0.0.0.0:2379
+            - --listen-client-urls
+            - http://0.0.0.0:2379
+            - --initial-cluster
+            - default=http://0.0.0.0:2380
+            - --log-level
+            - debug
+            - --logger
+            - zap
+            - --log-outputs
+            - stderr
+
+    ### ADMIN #############################################
+    admin:
+        build: ./admin
+        environment:
+            - TZ=${TIMEZONE}
+        ports:
+            - "80:80"
+            - "443:443"
+        tty: true
+        networks:
+            - frontend
+
+    ### ADMIN-API #########################################
+    admin-api:
+        build: ./admin-api
+        environment:
+            - TZ=${TIMEZONE}
+        ports:
+            - "8080:80"
+            - "8443:443"
+        tty: true
+        networks:
+            - frontend
+            - backend
+        depends_on:
+            - mysql
+            - redis
+            - etcd
+
+    ### APP-API ###########################################
+    app-api:
+        build: ./app-api
+        environment:
+            - TZ=${TIMEZONE}
+        ports:
+            - "8090:80"
+            - "9443:443"
+        tty: true
+        networks:
+            - frontend
+            - backend
+        depends_on:
+            - mysql
+            - redis
+            - etcd

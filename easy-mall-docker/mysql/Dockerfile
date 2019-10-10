@@ -1,7 +1,7 @@
 ARG MYSQL_VERSION=latest
 FROM mysql:${MYSQL_VERSION}
 
-LABEL maintainer="Mahmoud Zalt <mahmoud@zalt.me>"
+LABEL maintainer="Zou You <1075820342@qq.com>"
 
 #####################################
 # Set Timezone
