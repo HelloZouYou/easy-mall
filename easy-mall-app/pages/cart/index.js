@@ -5,6 +5,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    is_edit: false,
+    total_fee: 0,
     cart_goods_arr: [
       {
         id: 1,

@@ -31,4 +31,5 @@
   border: none;
   background-color: #F1F1F1;
   font-size: 24rpx;
+  margin: 0 10rpx;
 }

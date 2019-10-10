@@ -28,7 +28,8 @@
 .cart-goods-item-img {
   text-align: center;
   width: 30%;
-  display: inline-block;
+  display: flex;
+  align-items: center;
 }
 .cart-goods-item-img image {
   margin: 0 auto;
@@ -40,12 +41,13 @@
   margin-left: 20rpx;
   width: 60%;
   display: inline-block;
+  position: relative;
 }
 .cart-goods-item-info-name {
   display: block;
   font-size: 32rpx;
   font-weight: bold;
-  margin-bottom: 10rpx;
+  margin-bottom: 20rpx;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -53,14 +55,83 @@
 .cart-goods-item-info-stock {
   display: block;
   font-size: 22rpx;
+  margin-bottom: 20rpx;
   color: #868686;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
+.cart-goods-item-info-bottom {
+  position: relative;
+}
 .cart-goods-item-info-price {
   color: red;
+  position: absolute;
+  left: 0rpx;
 }
 .cart-goods-item-info-num {
   display: inline-block;
+  position: absolute;
+  right: 10rpx;
+}
+
+.cart-bottom{
+  padding: 20rpx 30rpx;
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  background-color: white;
+  width: 100%;
+  height: 100rpx;
+}
+.cart-bottom .checkbox {
+  width: 20%;
+  display: flex;
+  align-items: center;
+  font-size: 22rpx;
+}
+.cart-bottom .checkbox checkbox .wx-checkbox-input {
+  width: 36rpx;
+  height: 36rpx;
+  border-radius: 50%;
+  background-color: #F1F1F1;
+}
+.cart-bottom .checkbox checkbox .wx-checkbox-input.wx-checkbox-input-checked {
+  background-color: #09bb07;
+}
+.cart-bottom .checkbox checkbox .wx-checkbox-input.wx-checkbox-input-checked::before {
+  font-weight: bold;
+  font-size: 36rpx;
+  color: white;
+}
+.cart-bottom .total-fee {
+  margin-left: 20rpx;
+  display: flex;
+  align-items: center;
+  color: red;
+  font-size: 40rpx;
+  font-weight: bold;
+}
+.cart-bottom .action-btn {
+  width: 100%;
+  margin-left: 20rpx;
+  text-align: right;
+}
+.cart-bottom .action-btn .edit {
+  display: inline-block;
+  padding: 10rpx 30rpx;
+  border-radius: 30rpx;
+  font-size: 24rpx;
+  height: 100%;
+  line-height: 36rpx;
+}
+.cart-bottom .action-btn .checkout {
+  display: inline-block;
+  padding: 10rpx 30rpx;
+  background-color: #09bb07;
+  color: white;
+  border-radius: 30rpx;
+  font-size: 24rpx;
+  height: 100%;
+  line-height: 36rpx;
 }
