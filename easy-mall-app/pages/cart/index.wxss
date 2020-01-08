@@ -117,6 +117,9 @@
   margin-left: 20rpx;
   text-align: right;
 }
+.cart-bottom .action-btn button {  
+  box-shadow: 0rpx 0rpx 2rpx #868686;
+}
 .cart-bottom .action-btn .edit {
   display: inline-block;
   padding: 10rpx 30rpx;
@@ -134,4 +137,7 @@
   font-size: 24rpx;
   height: 100%;
   line-height: 36rpx;
+}
+.cart-bottom .action-btn .checkout:active {
+  box-shadow: inset 2rpx 2rpx 5rpx #333333;
 }

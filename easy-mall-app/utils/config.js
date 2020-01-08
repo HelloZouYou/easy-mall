@@ -3,7 +3,7 @@ const ENV = 'DEV'
 // 环境信息
 const ENV_DATA = {
   DEV: {
-    BASE_URL: 'http://192.168.3.4:8080/' 
+    BASE_URL: 'http://localhost:8080/' 
   },
   STAGE: {
     BASE_URL: 'http://localhost:8080'

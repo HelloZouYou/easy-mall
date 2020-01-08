@@ -2,6 +2,7 @@ module.exports = (app) => {
     const home = require('./data/home');
     const image = require('./data/image');
     const category = require('./data/category');
+    const cart = require('./data/cart');
 
     // 首页
     app.get('/home/banner', home.getBannerData);
@@ -16,4 +17,7 @@ module.exports = (app) => {
     app.get('/image/banner/:id', image.banner);
     app.get('/image/category/:id', image.category);
     app.get('/image/goods/:id', image.goods);
+
+    // 购物车
+    app.get('/cart/goods', cart.getGoodsData); // 获取购物车的商品数据
 };

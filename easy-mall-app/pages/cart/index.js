@@ -1,4 +1,8 @@
 // pages/cart/index.js
+import {
+  getCartGoods
+} from '../../api/cart.js'
+
 Page({
 
   /**
@@ -7,36 +11,42 @@ Page({
   data: {
     is_edit: false,
     total_fee: 0,
-    cart_goods_arr: [
-      {
-        id: 1,
-        is_checked: true,
-        pic_url: 'http://localhost:8080/image/goods/1?w=80&h=80',
-        goods_name: '123123123123123123',
-        goods_stock: '已选择的规格描述',
-        number: 2,
-        price: 99
-      },
-      {
-        id: 2,
-        is_checked: false,
-        pic_url: 'http://localhost:8080/image/goods/1?w=80&h=80',
-        goods_name: '456',
-        goods_stock: '已选择的规格描述',
-        number: 1,
-        price: 99
-      }
-    ]
+    cart_goods_arr: []
   },
   goodsNumChange: function (e) {
     console.log(e.detail)
+  },
+  // 获取页面数据
+  fetchData() {
+    this.fetchCartData()
+  },
+  // 获取购物车数据
+  fetchCartData: function() {
+    getCartGoods().then(res => {
+      this.setData({
+        cart_goods_arr: res.data.data
+      })
+      this.sumTotalFee()
+    }).catch(errors => {
+      console.log(errors)
+    })
+  },
+
+  sumTotalFee: function() {
+    let temp_fee = 0
+    this.data.cart_goods_arr.forEach(function (item) {
+      temp_fee += item.number*item.price
+    })
+    this.setData({
+      total_fee: temp_fee
+    })
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.fetchData()
   },
 
   /**
