@@ -4,7 +4,7 @@ module.exports = {
   // 请求推荐类目
   getCategoryData: (params) => {
     return request({
-      url: '/category/index',
+      url: '/category',
       method: 'GET',
       data: params
     })
@@ -12,9 +12,8 @@ module.exports = {
   // 请求推荐类目
   getGoodsData: (params) => {
     return request({
-      url: '/category/goods',
-      method: 'GET',
-      data: params
+      url: '/category/' + params.category_id,
+      method: 'GET'
     })
   },
 
