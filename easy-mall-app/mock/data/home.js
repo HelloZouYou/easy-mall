@@ -82,19 +82,19 @@ exports.getGoodsData = (req, res) => {
         pic_url: 'http://' + host + ':8080/image/goods/1?w=80&h=80',
         price: 98.0,
         name: '竹筒酒',
-        desc: '入口绵甜温和，竹味浓香，自然清纯，舌尖留味无穷，尽情回味入口绵甜温和，竹味浓香，自然清纯，舌尖留味无穷，尽情回味'
+        brief: '入口绵甜温和，竹味浓香，自然清纯，舌尖留味无穷，尽情回味入口绵甜温和，竹味浓香，自然清纯，舌尖留味无穷，尽情回味'
     }, {
         id: 2,
         pic_url: 'http://' + host + ':8080/image/goods/2?w=80&h=80',
         price: 58.0,
         name: '腊豆腐',
-        desc: '土家腊豆腐，黄豆磨制，柴火烟熏特色'
+        brief: '土家腊豆腐，黄豆磨制，柴火烟熏特色'
     }, {
         id: 3,
         pic_url: 'http://' + host + ':8080/image/goods/3?w=80&h=80',
         price: 58.0,
         name: '湘西腊肠',
-        desc: '风味鲜美，醇厚浓郁，回味绵长，越嚼越香'
+        brief: '风味鲜美，醇厚浓郁，回味绵长，越嚼越香'
     }])
     res.status(200).json(tmp)
 

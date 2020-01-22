@@ -3,6 +3,8 @@ module.exports = (app) => {
     const image = require('./data/image');
     const category = require('./data/category');
     const cart = require('./data/cart');
+    const goods = require('./data/goods');
+    const common = require('./data/common');
 
     // 首页
     app.get('/home/banner', home.getBannerData);
@@ -26,4 +28,11 @@ module.exports = (app) => {
     app.delete('/cart', cart.delCartGoods);
     app.put('/cart/:id/switch-checked', cart.switchCartGoodsItem);
     app.put('/cart/switch-checked', cart.switchCartGoodsAll);
+    app.post('/cart/checkout', cart.checkoutCartGoods);
+
+    // 商品
+    app.get('/goods/:id', goods.getGoodsDetail);
+
+    // 公共
+    app.get('/common/question', common.getCommonQuestion)
 };

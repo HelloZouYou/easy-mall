@@ -62,6 +62,10 @@
 			"currentL": -1,
 			"list": []
 		},
+		"gamePlugin": {
+			"current": -1,
+			"list": []
+		},
 		"miniprogram": {
 			"current": 2,
 			"list": [
@@ -83,6 +87,14 @@
 					"id": -1,
 					"name": "购物车",
 					"pathName": "pages/cart/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": " 商品详情",
+					"pathName": "pages/goods/detail/index",
+					"query": "id=1",
 					"scene": null
 				}
 			]

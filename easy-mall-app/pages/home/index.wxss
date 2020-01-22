@@ -104,6 +104,7 @@
   font-size: 50rpx;
   display: inline-block;
   width: 20%;
+  margin: auto auto;
 }
 .goods-item-info {
   display: inline-block;
