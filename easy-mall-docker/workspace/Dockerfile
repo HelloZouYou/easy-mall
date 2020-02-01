@@ -26,7 +26,6 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 ARG GOPROXY=https://goproxy.cn
 ENV GOPROXY ${GOPROXY}
 ENV GO111MODULE on
-RUN go env -w GOPROXY=${GOPROXY},direct
 
 # 安装 micro、go-micro
 RUN go get github.com/micro/micro && \
@@ -40,6 +39,14 @@ RUN git clone https://github.com/protocolbuffers/protobuf.git
 
 WORKDIR /usr/protobuf
 RUN git submodule update --init --recursive && ./autogen.sh && ./configure && make && make check && make install
+
+# 避免报错 protoc: error while loading shared libraries: libprotoc.so
+ARG LD_LIBRARY_PATH=/usr/local/lib
+ENV LD_LIBRARY_PATH ${LD_LIBRARY_PATH}
+
+# 设置micro的registry环境变量，可etcd、mdns
+ENV MICRO_REGISTRY etcd
+ENV MICRO_REGISTRY_ADDRESS etcd:2379
 
 WORKDIR /var/www
 
