@@ -50,7 +50,7 @@ MYSQL_ENTRYPOINT_INITDB=./mysql/docker-entrypoint-initdb.d
 REDIS_PORT=63793
 
 ### ETCD ##################################################
-ETCD_VERSION=v3.4.3 # 可指定新版
+ETCD_VERSION=v3.4.3
 
 ### ETCDKEEPER ############################################
 ETCDKEEPER_PORT=8068

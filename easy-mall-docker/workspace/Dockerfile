@@ -14,7 +14,7 @@ RUN sed -i 's/\r//' /root/aliases.sh && \
 # 安装更新
 RUN apt-get update -y && \
     apt-get upgrade -y
-RUN apt-get install -y apt-utils autoconf automake libtool curl make g++ musl-dev vim net-tools
+RUN apt-get install -y apt-utils autoconf automake libtool curl make g++ musl-dev vim net-tools zip git
 
 # 设置时区
 ARG TZ=PRC
@@ -35,10 +35,14 @@ RUN go get github.com/micro/micro && \
 
 # protobuf
 WORKDIR /usr
-RUN git clone https://github.com/protocolbuffers/protobuf.git
+RUN git config --global http.postBuffer 524288000 && git clone https://github.com/protocolbuffers/protobuf.git
+# ADD https://github.com/protocolbuffers/protobuf/archive/master.zip ./protobuf.zip
+# RUN apt-get install -y zip && unzip protobuf.zip
 
 WORKDIR /usr/protobuf
-RUN git submodule update --init --recursive && ./autogen.sh && ./configure && make && make check && make install
+RUN git submodule update --init --recursive && \
+    # WORKDIR /usr/protobuf-master
+    ./autogen.sh && ./configure && make && make check && make install
 
 # 避免报错 protoc: error while loading shared libraries: libprotoc.so
 ARG LD_LIBRARY_PATH=/usr/local/lib
