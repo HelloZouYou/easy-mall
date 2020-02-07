@@ -1,6 +1,6 @@
 DROP TABLE IF EXISTS `admin`;
 CREATE TABLE `admin` (
-  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` varchar(63) NOT NULL DEFAULT '' COMMENT '登录账号',
   `email` varchar(63) NOT NULL DEFAULT '' COMMENT '邮箱名',
   `mobile` char(11) NOT NULL DEFAULT '' COMMENT '手机号码',
@@ -8,7 +8,7 @@ CREATE TABLE `admin` (
   `password` varchar(255) NOT NULL COMMENT '密码',
   `avatar` varchar(255) NOT NULL DEFAULT '' COMMENT '头像图片',
   `login_at` datetime DEFAULT NULL COMMENT '最近登录时间',
-  `status` tinyint(2) UNSIGNED NOT NULL DEFAULT 1 COMMENT '状态：1-正常， 2-停用，3-软删',
+  `status` tinyint(2) UNSIGNED NOT NULL DEFAULT 1 COMMENT '状态：1-正常，2-停用',
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE,
@@ -17,56 +17,30 @@ CREATE TABLE `admin` (
 
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
-  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `openid` varchar(63) NOT NULL DEFAULT '' COMMENT '微信登录openid',
   `session_key` varchar(255) NOT NULL DEFAULT '' COMMENT '微信登录会话KEY',
-  `gender` tinyint(2) NOT NULL DEFAULT 0 COMMENT '性别：0 未知， 1男， 1 女',
+  `gender` tinyint(2) UNSIGNED NOT NULL DEFAULT 1 COMMENT '性别：1-未知，2-男， 3-女',
   `birthday` date DEFAULT NULL COMMENT '生日',
   `nickname` varchar(63) NOT NULL DEFAULT '' COMMENT '用户昵称或网络名称',
   `phone` char(11) NOT NULL DEFAULT '' COMMENT '用户手机号码',
   `avatar` varchar(255) NOT NULL DEFAULT '' COMMENT '用户头像图片',
-  `status` tinyint(2) UNSIGNED NOT NULL DEFAULT 1 COMMENT '状态：1-正常， 2-停用，3-软删',
+  `status` tinyint(2) UNSIGNED NOT NULL DEFAULT 1 COMMENT '状态：1-正常，2-停用',
   `login_at` datetime DEFAULT NULL COMMENT '最近登录时间',
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8mb4 COMMENT='用户表';
 
-DROP TABLE IF EXISTS `log_user`;
-CREATE TABLE `log_user` (
-  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `user_id` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '用户ID',
-  `ip` varchar(15) NOT NULL DEFAULT '' COMMENT '操作IP',
-  `type` tinyint(2) UNSIGNED NOT NULL DEFAULT 1 COMMENT '类型：1-注册创建，2-信息修改，3-密码修改，4-登录，5-停用，6-启用，7-删除',
-  `opt_name` varchar(255) NOT NULL DEFAULT '' COMMENT '操作人名称',
-  `created_at` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  PRIMARY KEY (`id`) USING BTREE,
-  KEY `idx_user_id_log_user` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户日志表';
-
-DROP TABLE IF EXISTS `log_admin`;
-CREATE TABLE `log_admin` (
-  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `admin_id` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '管理账号ID',
-  `ip` varchar(15) NOT NULL DEFAULT '' COMMENT '操作IP',
-  `type` tinyint(2) UNSIGNED NOT NULL DEFAULT 1 COMMENT '类型：1-注册创建，2-信息修改，3-密码修改，4-登录，5-停用，6-启用，7-软删',
-  `opt_name` varchar(255) NOT NULL DEFAULT '' COMMENT '操作人名称',
-  `created_at` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  PRIMARY KEY (`id`) USING BTREE,
-  KEY `idx_admin_id_log_admin` (`admin_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='管理员日志表';
-
 DROP TABLE IF EXISTS `banner`;
 CREATE TABLE `banner` (
-  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` varchar(63) NOT NULL DEFAULT '' COMMENT '名称标题',
   `link` varchar(255) NOT NULL DEFAULT '' COMMENT '链接地址',
   `img_url` varchar(255) NOT NULL COMMENT '图片地址',
   `content` varchar(255) NOT NULL DEFAULT '' COMMENT '内容描述',
-  `sort` int(10) NOT NULL DEFAULT 100 COMMENT '排序值',
-  `status` tinyint(2) UNSIGNED NOT NULL DEFAULT 1 COMMENT '状态：1-正常， 2-停用',
+  `sort` int(10) UNSIGNED NOT NULL DEFAULT 100 COMMENT '排序值',
+  `status` tinyint(2) UNSIGNED NOT NULL DEFAULT 1 COMMENT '状态：1-正常，2-停用',
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`)
@@ -74,17 +48,17 @@ CREATE TABLE `banner` (
 
 DROP TABLE IF EXISTS `cart`;
 CREATE TABLE `cart` (
-  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `order_id` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '订单ID',
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_id` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '用户ID',
   `goods_id` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '商品ID',
   `goods_stock_id` int(10) NOT NULL DEFAULT 0 COMMENT '商品货品表的货品ID',
   `goods_sn` varchar(63) NOT NULL DEFAULT '' COMMENT '商品编号',
   `goods_name` varchar(127) NOT NULL DEFAULT '' COMMENT '商品名称',
-  `number` int(10) NOT NULL DEFAULT 0 COMMENT '购买数量',
+  `number` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '购买数量',
   `price` decimal(10,2) NOT NULL DEFAULT 0.00 COMMENT '商品货品的售价',
   `specifications` varchar(1023) NOT NULL COMMENT '商品规格value列表，采用JSON数组格式',
   `pic_url` varchar(255) NOT NULL DEFAULT '' COMMENT '商品图片，具体库存图片',
-  `is_checked` tinyint(2) DEFAULT 1 COMMENT '购物车中商品是否选择状态：1-是，2-否',
+  `is_checked` tinyint(2) UNSIGNED NOT NULL DEFAULT 1 COMMENT '购物车中商品是否选择状态：1-是，2-否',
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`)
@@ -92,13 +66,13 @@ CREATE TABLE `cart` (
 
 DROP TABLE IF EXISTS `category`;
 CREATE TABLE `category` (
-  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` varchar(63) NOT NULL DEFAULT '' COMMENT '名称',
   `desc` varchar(255) NOT NULL DEFAULT '' COMMENT '类目简述',
   `icon_url` varchar(255) NOT NULL DEFAULT '' COMMENT '类目图标',
   `pic_url` varchar(255) NOT NULL DEFAULT '' COMMENT '类目图片',
-  `sort` int(10) NOT NULL DEFAULT 100 COMMENT '排序值',
-  `status` tinyint(2) UNSIGNED NOT NULL DEFAULT 1 COMMENT '状态：1-正常， 2-停用',
+  `sort` int(10) UNSIGNED NOT NULL DEFAULT 100 COMMENT '排序值',
+  `status` tinyint(2) UNSIGNED NOT NULL DEFAULT 1 COMMENT '状态：1-正常，2-停用',
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`)
@@ -106,7 +80,7 @@ CREATE TABLE `category` (
 
 DROP TABLE IF EXISTS `collect`;
 CREATE TABLE `collect` (
-  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `user_id` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '用户ID',
   `goods_id` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '商品ID',
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
@@ -117,13 +91,13 @@ CREATE TABLE `collect` (
 
 DROP TABLE IF EXISTS `comment`;
 CREATE TABLE `comment` (
-  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `user_id` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '用户ID',
   `goods_id` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '商品ID',
   `order_goods_id` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '订单商品ID',
   `content` varchar(1023) NOT NULL DEFAULT '' COMMENT '评论文字内容',
   `pic_urls` varchar(1023) NOT NULL DEFAULT '' COMMENT '图片地址列表，JSON数组',
-  `star` tinyint(3) NOT NULL DEFAULT 5 COMMENT '星星评分，1-5',
+  `star` tinyint(2) UNSIGNED NOT NULL DEFAULT 5 COMMENT '星星评分，1-5',
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`),
@@ -132,7 +106,7 @@ CREATE TABLE `comment` (
 
 DROP TABLE IF EXISTS `coupon`;
 CREATE TABLE `coupon` (
-  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` varchar(63) NOT NULL COMMENT '优惠券名称，如限时满减券',
   `desc` varchar(255) NOT NULL DEFAULT '' COMMENT '优惠券介绍，通常是显示优惠券使用限制文字',
   `total` int(10) NOT NULL DEFAULT -1 COMMENT '优惠券数量：-1-无限量',
@@ -141,12 +115,12 @@ CREATE TABLE `coupon` (
   `consum_min` decimal(10,2) NOT NULL DEFAULT 0.00 COMMENT '最低消费金额',
   `type` tinyint(2) UNSIGNED NOT NULL DEFAULT 1 COMMENT '优惠券类型：1-通用券，用户领取；2-注册赠券；3-优惠券码兑换',
   `status` tinyint(2) UNSIGNED NOT NULL DEFAULT 1 COMMENT '优惠券状态：1-正常， 2-停用下架，3-过期失效',
-  `goods_type` tinyint(2) NOT NULL DEFAULT 0 COMMENT '商品限制类型，0-全场通用，1-类目限制，2-商品限制',
+  `goods_type` tinyint(2) UNSIGNED NOT NULL DEFAULT 1 COMMENT '商品限制类型，1-全场通用，2-类目限制，3-商品限制',
   `goods_value` varchar(1023) NOT NULL DEFAULT '' COMMENT '商品限制值，goods_type 所对应的ID限制，逗号分隔或json数组',
-  `time_type` smallint(6) DEFAULT 0 COMMENT '时间限制类型，0-基于领取时间的有效天数days；1-start_date和end_date是优惠券有效期；',
-  `days` smallint(6) DEFAULT 0 COMMENT '基于领取时间的有效天数',
-  `start_date` date DEFAULT NULL COMMENT '使用券开始时间',
-  `end_date` date DEFAULT NULL COMMENT '使用券截至时间',
+  `time_type` tinyint(2) UNSIGNED NOT NULL DEFAULT 1 COMMENT '时间限制类型，1-时间不限；2-基于领取时间的有效天数days；3-start_date和end_date是优惠券有效期；',
+  `days` smallint(6) UNSIGNED DEFAULT 0 COMMENT '基于领取时间的有效天数',
+  `start_date` datetime DEFAULT NULL COMMENT '使用券开始时间',
+  `end_date` datetime DEFAULT NULL COMMENT '使用券截至时间',
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`)
@@ -154,7 +128,7 @@ CREATE TABLE `coupon` (
 
 DROP TABLE IF EXISTS `coupon_code`;
 CREATE TABLE `coupon_code` (
-  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `coupon_id` int(10) UNSIGNED NOT NULL COMMENT '兑换码优惠券ID',
   `user_id` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '用户ID，兑换后绑定到用户ID',
   `code` varchar(63) NOT NULL COMMENT '优惠券兑换码',
@@ -168,7 +142,7 @@ CREATE TABLE `coupon_code` (
 
 DROP TABLE IF EXISTS `feedback`;
 CREATE TABLE `feedback` (
-  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `user_id` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '用户ID',
   `username` varchar(63) NOT NULL DEFAULT '' COMMENT '用户名称',
   `mobile` varchar(20) NOT NULL DEFAULT '' COMMENT '手机号，可以固话',
@@ -182,7 +156,7 @@ CREATE TABLE `feedback` (
 
 DROP TABLE IF EXISTS `footprint`;
 CREATE TABLE `footprint` (
-  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `user_id` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '用户ID',
   `goods_id` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '商品ID',
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
@@ -192,7 +166,7 @@ CREATE TABLE `footprint` (
 
 DROP TABLE IF EXISTS `goods`;
 CREATE TABLE `goods` (
-  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` varchar(63) NOT NULL DEFAULT '' COMMENT '商品名称，限定不超过10字',
   `goods_sn` varchar(63) NOT NULL DEFAULT '' COMMENT '商品编号',
   `category_id` int(10) NOT NULL DEFAULT 0 COMMENT '类目ID',
@@ -203,12 +177,12 @@ CREATE TABLE `goods` (
   `detail` text COMMENT '商品详细介绍，图文并茂，是富文本格式',
   `pic_url` varchar(255) DEFAULT NULL COMMENT '商品页面商品图片',
   `share_url` varchar(255) DEFAULT NULL COMMENT '商品分享朋友圈图片',
-  `is_on_sale` tinyint(1) DEFAULT 2 COMMENT '是否上架：1-是，2-否',
-  `is_new` tinyint(1) DEFAULT 2 COMMENT '是否新品：1-是，2-否',
-  `is_hot` tinyint(1) DEFAULT 2 COMMENT '是否热卖：1-是，2-否',
-  `sort` int(10) NOT NULL DEFAULT 100 COMMENT '排序值',
-  `price` decimal(10,2) DEFAULT 0.00 COMMENT '红字价格，未选中规格前显示',
-  `marked_price` decimal(10,2) DEFAULT 0.00 COMMENT '划线价',
+  `is_on_sale` tinyint(2) UNSIGNED NOT NULL DEFAULT 2 COMMENT '是否上架：1-是，2-否',
+  `is_new` tinyint(2) UNSIGNED NOT NULL DEFAULT 2 COMMENT '是否新品：1-是，2-否',
+  `is_hot` tinyint(2) UNSIGNED NOT NULL DEFAULT 2 COMMENT '是否热卖：1-是，2-否',
+  `sort` int(10) UNSIGNED NOT NULL DEFAULT 100 COMMENT '排序值',
+  `price` decimal(10,2) NOT NULL DEFAULT 0.00 COMMENT '红字价格，未选中规格前显示',
+  `marked_price` decimal(10,2) NOT NULL DEFAULT 0.00 COMMENT '划线价',
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`),
@@ -218,7 +192,7 @@ CREATE TABLE `goods` (
 
 DROP TABLE IF EXISTS `goods_attr`;
 CREATE TABLE `goods_attr` (
-  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `goods_id` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '商品ID',
   `attr` varchar(255) NOT NULL COMMENT '商品参数名称',
   `value` varchar(255) NOT NULL COMMENT '商品参数值',
@@ -230,7 +204,7 @@ CREATE TABLE `goods_attr` (
 
 DROP TABLE IF EXISTS `goods_specification`;
 CREATE TABLE `goods_specification` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(10) NOT NULL AUTO_INCREMENT,
   `goods_id` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '商品ID',
   `name` varchar(255) NOT NULL DEFAULT '' COMMENT '商品规格名称',
   `value` varchar(255) NOT NULL DEFAULT '' COMMENT '商品规格值',
@@ -242,12 +216,12 @@ CREATE TABLE `goods_specification` (
 
 DROP TABLE IF EXISTS `goods_stock`;
 CREATE TABLE `goods_stock` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(10) NOT NULL AUTO_INCREMENT,
   `goods_id` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '商品ID',
   `specifications` varchar(1023) NOT NULL COMMENT '商品规格value列表，采用JSON数组格式',
   `price` decimal(10,2) NOT NULL DEFAULT 0.00 COMMENT '价格',
-  `stock_num` int(11) NOT NULL DEFAULT 0 COMMENT '库存',
-  `pic_url` varchar(125) NOT NULL DEFAULT '' COMMENT '商品货品图片',
+  `stock_num` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '库存',
+  `pic_url` varchar(255) NOT NULL DEFAULT '' COMMENT '商品货品图片',
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`)
@@ -255,7 +229,7 @@ CREATE TABLE `goods_stock` (
 
 DROP TABLE IF EXISTS `issue`;
 CREATE TABLE `issue` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(10) NOT NULL AUTO_INCREMENT,
   `question` varchar(255) DEFAULT NULL COMMENT '问题标题',
   `answer` varchar(255) DEFAULT NULL COMMENT '问题答案',
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
@@ -265,13 +239,13 @@ CREATE TABLE `issue` (
 
 DROP TABLE IF EXISTS `order`;
 CREATE TABLE `order` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(10) NOT NULL AUTO_INCREMENT,
   `user_id` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '用户ID',
   `order_sn` varchar(63) NOT NULL COMMENT '订单编号',
   `consignee` varchar(63) NOT NULL COMMENT '收货人名称',
   `mobile` varchar(63) NOT NULL COMMENT '收货人手机号',
-  `address` varchar(127) NOT NULL COMMENT '收货具体地址',
-  `message` varchar(512) NOT NULL DEFAULT '' COMMENT '用户订单留言',
+  `address` varchar(255) NOT NULL COMMENT '收货具体地址',
+  `message` varchar(1023) NOT NULL DEFAULT '' COMMENT '用户订单留言',
   `goods_money` decimal(10,2) NOT NULL COMMENT '商品总费用',
   `freight_money` decimal(10,2) NOT NULL COMMENT '配送费用',
   `coupon_money` decimal(10,2) NOT NULL COMMENT '优惠券减免',
@@ -291,10 +265,10 @@ CREATE TABLE `order` (
 
 DROP TABLE IF EXISTS `order_goods`;
 CREATE TABLE `order_goods` (
-  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `order_id` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '订单ID',
   `goods_id` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '商品ID',
-  `goods_stock_id` int(11) NOT NULL DEFAULT 0 COMMENT '商品库存ID',
+  `goods_stock_id` int(10) NOT NULL DEFAULT 0 COMMENT '商品库存ID',
   `goods_sn` varchar(63) NOT NULL DEFAULT '' COMMENT '商品编号',
   `goods_name` varchar(127) NOT NULL DEFAULT '' COMMENT '商品名称',
   `number` int(10) NOT NULL DEFAULT 0 COMMENT '购买数量',
@@ -324,17 +298,17 @@ CREATE TABLE `province_city` (
 
 DROP TABLE IF EXISTS `user_address`;
 CREATE TABLE `user_address` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(10) NOT NULL AUTO_INCREMENT,
   `user_id` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '用户ID',
   `name` varchar(63) NOT NULL DEFAULT '' COMMENT '收货人',
-  `phone` varchar(20) NOT NULL DEFAULT '' COMMENT '电话号码，可以固话',
+  `mobile` varchar(20) NOT NULL DEFAULT '' COMMENT '电话号码，可以固话',
   `province` varchar(63) NOT NULL COMMENT '行政区域表的省ID',
   `city` varchar(63) NOT NULL COMMENT '行政区域表的市ID',
   `county` varchar(63) NOT NULL COMMENT '行政区域表的区县ID',
   `detail` varchar(127) NOT NULL DEFAULT '' COMMENT '详细收货地址',
   `area_code` char(6) DEFAULT NULL COMMENT '地区编码，冗余县级',
   `postal_code` char(6) DEFAULT NULL COMMENT '邮政编码，冗余县级',
-  `status` tinyint(2) UNSIGNED NOT NULL DEFAULT 1 COMMENT '状态：1-非默认， 2-默认，3-软删',
+  `status` tinyint(2) UNSIGNED NOT NULL DEFAULT 1 COMMENT '状态：1-非默认， 2-默认',
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`),
@@ -343,7 +317,7 @@ CREATE TABLE `user_address` (
 
 DROP TABLE IF EXISTS `user_coupon`;
 CREATE TABLE `user_coupon` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(10) NOT NULL AUTO_INCREMENT,
   `user_id` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '用户ID',
   `coupon_id` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '优惠券ID',
   `order_id` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '订单ID，使用后绑定订单',

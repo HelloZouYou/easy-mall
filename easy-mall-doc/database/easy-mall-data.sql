@@ -1,12 +1,7 @@
 -- ----------------------------
 -- Records of admin
 -- ----------------------------
-INSERT INTO `admin` VALUES (1000, 'admin', '', '', '超级管理员', '$2y$10$iE7CIawAf70CQNleexcUxesH4n42JRqcbA7/I6760FqQHzWlFfv7y', 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif', NULL, 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
-
--- ----------------------------
--- Records of roles
--- ----------------------------
-INSERT INTO `roles` VALUES (1, '超级管理员', 'super-admin', '超级管理员', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO `admin` VALUES (1000, 'super-admin', '', '', '超级管理员', '$2y$10$iE7CIawAf70CQNleexcUxesH4n42JRqcbA7/I6760FqQHzWlFfv7y', 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif', NULL, 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 -- ----------------------------
 -- Records of province_city

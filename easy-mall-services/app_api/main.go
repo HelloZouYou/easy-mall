@@ -3,8 +3,9 @@ package main
 import (
 	"net/http"
 
-	"easy-mall/pkg"
 	"github.com/micro/go-micro/util/log"
+
+	"app_api/handler"
 
 	"github.com/micro/go-micro/web"
 )
@@ -12,9 +13,8 @@ import (
 func main() {
 	// create new web service
 	service := web.NewService(
-		web.Name(config.WEBADMIN),
+		web.Name("easymall.web.app_api"),
 		web.Version("latest"),
-		web.Address(":80"),
 	)
 
 	// initialise service
@@ -23,7 +23,10 @@ func main() {
 	}
 
 	// register html handler
-	service.Handle("/", http.FileServer(http.Dir("/html")))
+	service.Handle("/", http.FileServer(http.Dir("html")))
+
+	// register call handler
+	service.HandleFunc("/app_api/call", handler.App_apiCall)
 
 	// run service
 	if err := service.Run(); err != nil {

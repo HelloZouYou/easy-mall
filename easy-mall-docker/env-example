@@ -39,7 +39,7 @@ MICRO_WEB_PORT=8082
 
 ### MYSQL #################################################
 MYSQL_VERSION=5.7
-MYSQL_DATABASE=easy-mall
+MYSQL_DATABASE=easy_mall
 MYSQL_USER=default
 MYSQL_PASSWORD=secret
 MYSQL_PORT=33063
@@ -50,14 +50,10 @@ MYSQL_ENTRYPOINT_INITDB=./mysql/docker-entrypoint-initdb.d
 REDIS_PORT=63793
 
 ### ETCD ##################################################
-ETCD_VERSION=v3.4.3
+ETCD_VERSION=v3.4.0
 
 ### ETCDKEEPER ############################################
 ETCDKEEPER_PORT=8068
-
-### NSQD ##################################################
-NSQD_PORT_TCP=4150
-NSQD_PORT_HTTP=4151
 
 ### NSQADMIN ##############################################
 NSQADMIN_PORT=4171
@@ -66,16 +62,10 @@ NSQADMIN_PORT=4171
 
 # 可用版本参考https://hub.docker.com/_/elasticsearch
 ELK_VERSION=7.5.0
-#ELASTICSEARCH_HOST_HTTP_PORT=9200
-#ELASTICSEARCH_HOST_TRANSPORT_PORT=9300
 KIBANA_HTTP_PORT=5601
 
 ### FILEBEAT ##############################################
 FILEBEAT_PORT=9082
-
-### LOGSTASH ##############################################
-#LOGSTASH_INPUT_PORT=5044
-#LOGSTASH_API_PORT=9600
 
 ### ADMIN #############################################
 ADMIN_PORT_HTTP=80

@@ -64,7 +64,12 @@ services:
 
     ### ETCD ##############################################
     etcd:
-        image: quay.io/coreos/etcd:${ETCD_VERSION}
+        build:
+            context: ./etcd
+            args:
+                - ETCD_VERSION=${ETCD_VERSION}
+        # volumes:
+        #     - ${DATA_PATH_HOST}/etcd:/etcd-data
         expose:
             - 2379
             - 2380
@@ -74,6 +79,7 @@ services:
             - ETCDCTL_API=3
         command:
             - /usr/local/bin/etcd
+            # - --data-dir /etcd-data
             - --initial-advertise-peer-urls
             - http://0.0.0.0:2380
             - --listen-peer-urls
@@ -84,12 +90,11 @@ services:
             - http://0.0.0.0:2379
             - --initial-cluster
             - default=http://0.0.0.0:2380
-            - --log-level
-            - debug
-            - --logger
-            - zap
-            - --log-outputs
-            - stderr
+            # - --initial-cluster-token tkn
+            # - --initial-cluster-state new
+            # - --log-level info
+            # - --logger zap
+            # - --log-outputs stderr
 
     ### ETCDKEEPER ########################################
     etcdkeeper:
@@ -99,6 +104,10 @@ services:
             - GOPROXY=${GOPROXY}
         networks:
             - backend
+        ports:
+            - "${ETCDKEEPER_PORT}:8080"
+        depends_on:
+            - etcd
 
     ### NSQ ###############################################
     nsqlookupd:
@@ -107,7 +116,7 @@ services:
             - 4160
             - 4161
         networks:
-            - default
+            - backend
         command: /nsqlookupd
     nsqd:
         image: nsqio/nsq
@@ -115,11 +124,11 @@ services:
             - ${DATA_PATH_HOST}/nsqd:/data
         depends_on:
             - nsqlookupd
-        ports:
-            - "${NSQD_PORT_TCP}:4150"
-            - "${NSQD_PORT_HTTP}:4151"
+        expose:
+            - 4150
+            - 4151
         networks:
-            - default
+            - backend
         command: /nsqd --lookupd-tcp-address=nsqlookupd:4160 --data-path=/data
     nsqadmin:
         image: nsqio/nsq
@@ -128,12 +137,8 @@ services:
         ports:
             - "${NSQADMIN_PORT}:4171"
         networks:
-            - default
+            - backend
         command: /nsqadmin --lookupd-http-address=nsqlookupd:4161
-        ports:
-            - "${ETCDKEEPER_PORT}:8080"
-        depends_on:
-            - etcd
 
     ### ELASTICSEARCH #####################################
     elasticsearch:
