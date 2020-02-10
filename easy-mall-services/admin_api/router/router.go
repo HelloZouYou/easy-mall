@@ -28,8 +28,8 @@ func Init(app *gin.Engine) {
 
 	// 全局传入需要校验auth的中间件，并定义不需要校验登录的url
 	notCheckLoginURLArr := []string{
-		"/user/login",
-		"/user/logout",
+		"/auth/login",
+		"/auth/logout",
 	}
 	app.Use(middleware.UserAuthMiddleware(
 		middleware.AllowPathPrefixSkipper(notCheckLoginURLArr...),

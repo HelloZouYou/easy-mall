@@ -15,6 +15,7 @@ import (
 	etcdStruct "easy-mall/pkg/structure/etcd"
 
 	"github.com/gin-gonic/gin"
+	"github.com/micro/go-micro/util/log"
 	"github.com/micro/go-micro/web"
 )
 
@@ -30,8 +31,8 @@ func main() {
 	etcd.Init()
 	// 从etcd获取配置信息
 	etcd.Scan(mysqlCfg, "easymall", "config", "mysql")
-	etcd.Scan(webCfg, "easymall", "admin", "web")
-	etcd.Scan(gormCfg, "easymall", "admin", "gorm")
+	etcd.Scan(webCfg, "easymall", "admin_api", "web")
+	etcd.Scan(gormCfg, "easymall", "admin_api", "gorm")
 	etcd.Scan(redisCfg, "easymall", "config", "redis")
 	// 将mysql信息写入gorm的连接
 	gormCfg.DSN = mysqlCfg.DSN()
@@ -51,6 +52,10 @@ func initWeb() {
 	gin.SetMode(webCfg.SetMode)
 	// 初始化gin
 	app := gin.Default()
+	// 404 路由找不到
+	app.NoRoute(middleware.NoRouteHandler())
+	// 405 方法不允许
+	app.NoMethod(middleware.NoMethodHandler())
 	// 崩溃恢复
 	app.Use(middleware.RecoveryMiddleware())
 	// 注册路由
@@ -74,7 +79,7 @@ func initWeb() {
 	)
 	// 将web服务的所有路由指向到gin
 	service.Handle("/", app)
-
+	log.Infof("service running on %v", webCfg.Addr)
 	// 启动运行服务
 	if err := service.Run(); err != nil {
 		panic(err)

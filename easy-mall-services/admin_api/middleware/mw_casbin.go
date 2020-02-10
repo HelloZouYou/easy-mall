@@ -32,7 +32,6 @@ func CasbinMiddleware(skipper ...SkipperFunc) gin.HandlerFunc {
 		// 对当前路由和方法进行权限判断
 		p := c.Request.URL.Path
 		m := c.Request.Method
-		log.Info("test test test", c.Request.URL)
 		if ok, err := casbin.CsbinCheckPermission(uid.(string), p, m); err != nil || !ok {
 			log.Errorf("CsbinCheckPermission err: %v, ok: %v", err, ok)
 			helper.ResJSON(c, http.StatusOK, &helper.APIResponse{

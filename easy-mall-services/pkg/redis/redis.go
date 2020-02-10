@@ -22,7 +22,7 @@ var Client *ConnPool
 
 // Init init redis
 func Init(config *etcdStruct.Redis) {
-	Client = InitRedisPool(config.Host, config.Database, config.MaxOpenConns, config.MaxIdleConns)
+	Client = InitRedisPool(config.Host, config.Password, config.Database, config.MaxOpenConns, config.MaxIdleConns)
 }
 
 // InitRedisPool func init RDS fd

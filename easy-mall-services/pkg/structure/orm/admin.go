@@ -13,4 +13,5 @@ type Admin struct {
 	Avatar   string    `gorm:"column:avatar;type:varchar(255);not null;" json:"avatar" form:"avatar"`        // 头像图片地址
 	LoginAt  time.Time `gorm:"column:login_at;type:datetime;" json:"login_at" form:"login_at"`               // 登录时间
 	Status   uint8     `gorm:"column:status;type:tinyint(2);not null;default:1" json:"status" form:"status"` // 状态：1-正常， 2-停用，3-软删
+	Roles    []Role    `gorm:"many2many:admin_role;save_associations:false;"`                                // 管理员和角色的多对多关联
 }

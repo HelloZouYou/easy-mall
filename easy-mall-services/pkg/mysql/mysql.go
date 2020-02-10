@@ -6,8 +6,9 @@ import (
 	"os"
 	"time"
 
-	"github.com/jinzhu/gorm"
 	etcdStruct "easy-mall/pkg/structure/etcd"
+
+	"github.com/jinzhu/gorm"
 )
 
 // Client mysql 的本地连接
@@ -15,7 +16,8 @@ var Client *gorm.DB
 
 // Init DB初始化
 func Init(config *etcdStruct.Gorm) {
-	Client, err := gorm.Open(config.DBType, config.DSN)
+	var err error
+	Client, err = gorm.Open(config.DBType, config.DSN)
 	if err != nil {
 		log.Fatalf("mysql connec fail: %v", err)
 	}

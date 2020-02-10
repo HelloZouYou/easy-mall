@@ -24,6 +24,7 @@ services:
         tty: true
         ports:
             - "${MICRO_WEB_PORT}:8082"
+            - 80
         networks:
             - frontend
             - backend

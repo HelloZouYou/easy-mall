@@ -56,4 +56,4 @@ WORKDIR /var/www
 
 ENTRYPOINT [ "micro", "web" ]
 
-EXPOSE 8082
+EXPOSE 8082 80

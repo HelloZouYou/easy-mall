@@ -196,6 +196,7 @@ CREATE TABLE `goods_attr` (
   `goods_id` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '商品ID',
   `attr` varchar(255) NOT NULL COMMENT '商品参数名称',
   `value` varchar(255) NOT NULL COMMENT '商品参数值',
+  `type` tinyint(2) UNSIGNED NOT NULL DEFAULT 1 COMMENT '参数类型：1-固定属性、2-可选规格',
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`),
@@ -206,7 +207,7 @@ DROP TABLE IF EXISTS `goods_specification`;
 CREATE TABLE `goods_specification` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `goods_id` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '商品ID',
-  `name` varchar(255) NOT NULL DEFAULT '' COMMENT '商品规格名称',
+  `goods_attr_id` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '商品属性ID',
   `value` varchar(255) NOT NULL DEFAULT '' COMMENT '商品规格值',
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
@@ -331,8 +332,8 @@ CREATE TABLE `user_coupon` (
   KEY `idx_user_id_coupon_id_user_coupon` (`user_id`, `coupon_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='优惠券用户使用表';
 
-DROP TABLE IF EXISTS `routes`;
-CREATE TABLE `routes` (
+DROP TABLE IF EXISTS `menu`;
+CREATE TABLE `menu` (
   `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `path` varchar(255) DEFAULT NULL COMMENT '当前路由的path，只是这一级的',
   `component` varchar(255) DEFAULT NULL COMMENT '当前路由所依赖的组件',
@@ -353,11 +354,10 @@ CREATE TABLE `routes` (
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='前端路由表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='前端路由菜单';
 
 CREATE TABLE `roles` (
   `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `cn_name` varchar(255) NOT NULL DEFAULT '' COMMENT '角色中文简称',
   `name` varchar(255) NOT NULL COMMENT '角色名称',
   `remark` varchar(255) DEFAULT NULL COMMENT '角色备注',
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
@@ -367,11 +367,36 @@ CREATE TABLE `roles` (
 
 CREATE TABLE `permissions` (
   `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `cn_name` varchar(255) NOT NULL DEFAULT '' COMMENT '权限的中文简称',
-  `name` varchar(255) NOT NULL COMMENT '权限资源名称，如 order',
-  `action` varchar(255) NOT NULL COMMENT '权限操作名称，如 read',
-  `route_id` int(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT '权限归属的路由ID',
+  `menu_id` int(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT '权限归属的菜单ID',
+  `name` varchar(255) NOT NULL DEFAULT '' COMMENT '权限名称',
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='权限表';
+
+CREATE TABLE `admin_role` (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `admin_id` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '管理账号ID',
+  `role_id` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '角色ID',
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='用户对应角色表';
+
+CREATE TABLE `role_permission` (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `role_id` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '角色ID',
+  `permission_id` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '权限ID',
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='角色对应权限表';
+
+CREATE TABLE `routes` (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `path` varchar(255) NOT NULL COMMENT '后端路由，如：/admin/:id',
+  `permission_id` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '权限ID',
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='后端路由表';

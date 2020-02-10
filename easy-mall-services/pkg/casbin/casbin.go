@@ -7,6 +7,7 @@ import (
 	"strconv"
 
 	"github.com/casbin/casbin"
+	"github.com/micro/go-micro/util/log"
 )
 
 // 前缀定义
@@ -23,10 +24,12 @@ var (
 // InitEnforcer 角色-URL导入
 func InitEnforcer() (err error) {
 	if Enforcer, err = casbin.NewEnforcerSafe(casbin.NewModel(casbinModel)); err != nil {
+		log.Errorf("InitEnforcer NewEnforcerSafe err: %v", err)
 		return
 	}
 	var roles []orm.Roles
 	if err = mysql.Client.Find(&roles).Error; err != nil {
+		log.Errorf("InitEnforcer get roles err: %v", err)
 		return
 	}
 	for _, role := range roles {
@@ -35,8 +38,9 @@ func InitEnforcer() (err error) {
 	return
 }
 
-// setRolePermission 设置角色权限
+// setRolePermission 设置角色权限，查询角色对应权限所属下的具体路由，实际判断路由是否匹配
 func setRolePermission(enforcer *casbin.Enforcer, roleid uint64) {
+	mysql.Client.Find()
 	// var rolemenus []tablemodels.RoleMenu
 	// err := models.Find(&tablemodels.RoleMenu{RoleID: roleid}, &rolemenus)
 	// if err != nil {
