@@ -1,10 +1,11 @@
 package middleware
 
 import (
-	"easy-mall/pkg/casbin"
-	"easy-mall/pkg/constant"
-	"easy-mall/pkg/helper"
 	"net/http"
+
+	"github.com/hellozouyou/easy-mall/pkg/casbin"
+	"github.com/hellozouyou/easy-mall/pkg/constant"
+	"github.com/hellozouyou/easy-mall/pkg/helper"
 
 	"github.com/gin-gonic/gin"
 	"github.com/micro/go-micro/util/log"

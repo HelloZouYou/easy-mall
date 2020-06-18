@@ -1,7 +1,7 @@
 package router
 
 import (
-	"easy-mall/admin_api/controller/auth"
+	"github.com/hellozouyou/easy-mall/admin_api/controller/auth"
 
 	"github.com/gin-gonic/gin"
 )

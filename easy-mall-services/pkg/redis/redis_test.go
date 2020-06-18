@@ -3,7 +3,7 @@ package redis_test
 import (
 	"testing"
 
-	"easy-mall/pkg/redis"
+	"github.com/hellozouyou/easy-mall/pkg/redis"
 	jsoniter "github.com/json-iterator/go"
 )
 

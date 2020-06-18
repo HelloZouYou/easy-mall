@@ -21,7 +21,7 @@ const ()
 
 // 业务常量
 const (
-	HASHSALT            = "easy-mall"
+	HASHSALT            = "github.com/hellozouyou/easy-mall"
 	SUPERADMINID uint64 = 1000
 	TOKENKEY            = "Bearer-Token" //页面token键名
 	USERIDKEY           = "X-USERID"     //页面用户ID键名

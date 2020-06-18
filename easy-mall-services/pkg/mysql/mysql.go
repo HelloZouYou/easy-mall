@@ -6,7 +6,7 @@ import (
 	"os"
 	"time"
 
-	etcdStruct "easy-mall/pkg/structure/etcd"
+	etcdStruct "github.com/hellozouyou/easy-mall/pkg/structure/etcd"
 
 	"github.com/jinzhu/gorm"
 )

@@ -5,10 +5,10 @@ import (
 
 	"github.com/micro/go-micro/util/log"
 
-	"easy-mall/pkg/constant"
-	"easy-mall/pkg/helper"
-	"easy-mall/pkg/jwt"
-	"easy-mall/pkg/redis"
+	"github.com/hellozouyou/easy-mall/pkg/constant"
+	"github.com/hellozouyou/easy-mall/pkg/helper"
+	"github.com/hellozouyou/easy-mall/pkg/jwt"
+	"github.com/hellozouyou/easy-mall/pkg/redis"
 
 	"github.com/gin-gonic/gin"
 )

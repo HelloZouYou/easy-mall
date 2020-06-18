@@ -2,9 +2,10 @@
 package casbin
 
 import (
-	"easy-mall/pkg/mysql"
-	"easy-mall/pkg/structure/orm"
 	"strconv"
+
+	"github.com/hellozouyou/easy-mall/pkg/mysql"
+	"github.com/hellozouyou/easy-mall/pkg/structure/orm"
 
 	"github.com/casbin/casbin"
 	"github.com/micro/go-micro/util/log"
@@ -27,7 +28,7 @@ func InitEnforcer() (err error) {
 		log.Errorf("InitEnforcer NewEnforcerSafe err: %v", err)
 		return
 	}
-	var roles []orm.Roles
+	var roles []orm.Role
 	if err = mysql.Client.Find(&roles).Error; err != nil {
 		log.Errorf("InitEnforcer get roles err: %v", err)
 		return
@@ -40,7 +41,7 @@ func InitEnforcer() (err error) {
 
 // setRolePermission 设置角色权限，查询角色对应权限所属下的具体路由，实际判断路由是否匹配
 func setRolePermission(enforcer *casbin.Enforcer, roleid uint64) {
-	mysql.Client.Find()
+	// mysql.Client.Find()
 	// var rolemenus []tablemodels.RoleMenu
 	// err := models.Find(&tablemodels.RoleMenu{RoleID: roleid}, &rolemenus)
 	// if err != nil {

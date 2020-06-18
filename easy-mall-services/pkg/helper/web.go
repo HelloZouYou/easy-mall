@@ -4,7 +4,7 @@ package helper
 import (
 	"net/http"
 
-	"easy-mall/pkg/constant"
+	"github.com/hellozouyou/easy-mall/pkg/constant"
 
 	"github.com/gin-gonic/gin"
 )

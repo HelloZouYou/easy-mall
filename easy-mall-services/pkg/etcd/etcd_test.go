@@ -8,7 +8,7 @@ import (
 	"github.com/micro/go-micro/store"
 	storeEtcd "github.com/micro/go-micro/store/etcd"
 
-	"easy-mall/pkg/etcd"
+	"github.com/hellozouyou/easy-mall/pkg/etcd"
 )
 
 var (

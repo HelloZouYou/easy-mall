@@ -2,11 +2,12 @@
 package jwt
 
 import (
-	"easy-mall/pkg/constant"
 	"encoding/json"
 	"errors"
 	"fmt"
 	"time"
+
+	"github.com/hellozouyou/easy-mall/pkg/constant"
 
 	jwt "github.com/dgrijalva/jwt-go"
 )

@@ -6,7 +6,7 @@ import (
 
 	"time"
 
-	"easy-mall/admin_api/middleware"
+	"github.com/hellozouyou/easy-mall/admin_api/middleware"
 
 	"github.com/gin-gonic/gin"
 	cors "github.com/itsjamie/gin-cors"

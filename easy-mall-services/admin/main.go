@@ -3,7 +3,7 @@ package main
 import (
 	"net/http"
 
-	"easy-mall/pkg"
+	"github.com/hellozouyou/easy-mall/pkg"
 	"github.com/micro/go-micro/util/log"
 
 	"github.com/micro/go-micro/web"
